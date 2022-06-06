@@ -5,15 +5,192 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener</title>
+    <style>
+        @import "https://fonts.googleapis.com/css?family=Montserrat:300,400,700";
+        input{
+        border: .2rem solid #0c9bfa;
+        font-size:2rem;
+        padding: 0.1rem 3.5rem;
+        color:#fff;
+        border-radius:.5rem;
+        background:#171d2e;
+        display: block;
+        margin: auto;
+        }
+
+        input:focus{
+        outline:none;
+        }
+
+        .container {
+        position:relative;
+        }
+
+        label{
+        position:absolute;
+        top:44.5%;
+        left:45rem;
+        transform: translateY(-50%);
+        font-size: 1rem;
+        background:#171d2e;
+        color:#fff;
+        transition: all .25s linear;
+        pointer-events:none;
+        }
+
+        input:focus ~ label,
+        input:not(:focus):valid ~ label{
+        transform: translateY(10%);
+        top:30%;
+        left:43rem;
+        font-size:1rem;
+        padding: 0 .3rem;
+        display: block;
+        margin: auto;
+        }
+
+        .rwd-table {
+        margin: 1em 0;
+        min-width: 900px;
+        margin-left:auto;
+        margin-right:auto;
+        }
+        .rwd-table tr {
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        }
+        .rwd-table th {
+        display: none;
+        }
+        .rwd-table td {
+        display: block;
+        }
+        .rwd-table td:first-child {
+        padding-top: .5em;
+        }
+        .rwd-table td:last-child {
+        padding-bottom: .5em;
+        }
+        .rwd-table td:before {
+        content: attr(data-th) ": ";
+        font-weight: bold;
+        width: 9.5em;
+        display: inline-block;
+        }
+        @media (min-width: 480px) {
+        .rwd-table td:before {
+            display: none;
+        }
+        }
+        .rwd-table th, .rwd-table td {
+        text-align: left;
+        }
+        @media (min-width: 480px) {
+        .rwd-table th, .rwd-table td {
+            display: table-cell;
+            padding: .25em .5em;
+        }
+        .rwd-table th:first-child, .rwd-table td:first-child {
+            padding-left: 0;
+        }
+        .rwd-table th:last-child, .rwd-table td:last-child {
+            padding-right: 0;
+        }
+        }
+
+        body {
+        padding: 0 2em;
+        font-family: Montserrat, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        color: #444;
+        background: #eee;
+        }
+
+        h1 {
+        font-weight: normal;
+        letter-spacing: -1px;
+        color: #34495E;
+        }
+
+        a {
+            font-weight: normal;
+            color: white;
+        }
+
+        .rwd-table {
+        background: #34495E;
+        color: #fff;
+        border-radius: .4em;
+        overflow: hidden;
+        }
+        .rwd-table tr {
+        border-color: #46627f;
+        }
+        .rwd-table th, .rwd-table td {
+        margin: .5em 1em;
+        }
+        @media (min-width: 480px) {
+        .rwd-table th, .rwd-table td {
+            padding: 1em !important;
+        }
+        }
+        .rwd-table th, .rwd-table td:before {
+        color: #dd5;
+        }
+        .shorten-btn {
+            position: absolute;
+            right: 32rem;
+            top: 6.5rem;
+            background-color: #171d2e;
+            cursor: pointer;
+            border: none;
+            padding: 10px;
+            width: 100px;
+            text-align: center;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            text-decoration: none;
+            overflow: hidden;
+            color: white;
+        }
+        .shorten-btn:hover{
+            background:#fff;
+            box-shadow:0px 2px 10px 5px #97B1BF;
+            color:#000;
+        }
+
+        .shorten-btn:after {
+            content: "";
+            background: #f1c40f;
+            display: block;
+            position: absolute;
+            padding-top: 300%;
+            padding-left: 350%;
+            margin-left: -20px !important;
+            margin-top: -120%;
+            opacity: 0;
+            transition: all 0.8s
+        }
+
+        .shorten-btn:active:after {
+            padding: 0;
+            margin: 0;
+            opacity: 1;
+            transition: 0s
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
     <h1>URL Shortener</h1>
+    <br><br>
     <form action="/shortUrls" method="POST">
-        <label for="fullURL">URL</label>
-        <input type="url" name="fullUrl" id="fullUrl" placeholder="Enter a URL" required>
-        <button type="submit">Shorten</button>
+        <input type="url" id="fullUrl" required />
+        <label>URL</label>
+        <button type="submit" class="shorten-btn">Shorten</button>
     </form>
-    <table>
+    <table class="rwd-table">
         <thead>
             <tr>
                 <th>Full URL</th>
@@ -33,5 +210,6 @@
             <% }) %>
         </tbody>
     </table>
+</div>
 </body>
 </html>
